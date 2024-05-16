@@ -9,8 +9,7 @@ import SwiftUI
 
 struct PizzaDetailView: View {
     
-    @ObservedObject var viewModel: PizzaViewModel
-    
+    @ObservedObject var pizzaViewModel: PizzaViewModel
     @EnvironmentObject var logInViewModel: LogInViewModel
     
     var body: some View {
@@ -21,14 +20,14 @@ struct PizzaDetailView: View {
                 
                 Text("Name:")
                     .font(.headline)
-                Text(viewModel.name)
+                Text(pizzaViewModel.pizzaName)
                     .padding()
                 
                 Divider()
                 
                 Text("Größe:")
                     .font(.headline)
-                Picker(selection: $viewModel.size, label: Text("Größe")) {
+                Picker(selection: $pizzaViewModel.size, label: Text("Größe")) {
                     ForEach(Size.allCases, id: \.self) { size in
                         Text(size.rawValue).tag(size)
                     }
@@ -40,27 +39,28 @@ struct PizzaDetailView: View {
                 
                 Text("Beläge:")
                     .font(.headline)
-                ForEach(viewModel.ingredients, id: \.self) { topping in
+                ForEach(pizzaViewModel.ingredients, id: \.self) { topping in
                     HStack {
                         Text(topping)
-                        Button(action: {viewModel.removeIngredient(ingredient: topping)}, label: {
+                        Button(action: {pizzaViewModel.removeIngredient(ingredient: topping)}, label: {
                             Image(systemName: "minus.circle")
                         })
                     }
                 }
+                
                 HStack {
                     TextField(
                         "Topping hinzufügen",
-                        text: $viewModel.inputIngredient
+                        text: $pizzaViewModel.inputIngredient
                     )
-                    Button(action: {viewModel.addIngredient()}, label: {
+                    Button(action: {pizzaViewModel.addIngredient()}, label: {
                         Image(systemName: "plus.circle")
                     })
                 }
                 
                 Spacer()
                 
-                Button(action: {viewModel.addPizzaToOrder()}, label: {
+                Button(action: {pizzaViewModel.addPizzaToOrder()}, label: {
                     Image(systemName: "cart")
                     
                 })
@@ -82,6 +82,6 @@ struct PizzaDetailView: View {
 }
 
 #Preview {
-    PizzaDetailView(viewModel: PizzaViewModel())
+    PizzaDetailView(pizzaViewModel: PizzaViewModel())
 }
 

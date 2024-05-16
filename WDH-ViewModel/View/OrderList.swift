@@ -11,6 +11,8 @@ struct OrderList: View {
     
     @ObservedObject var pizzaViewModel: PizzaViewModel
     
+    @EnvironmentObject var logInViewModel: LogInViewModel
+    
     var body: some View {
         
         Form {

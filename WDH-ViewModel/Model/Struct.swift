@@ -10,7 +10,7 @@ import Foundation
 struct Pizza: Equatable {
     let name: String
     var size: Size
-    let ingredients: [String]
+    var ingredients: [String]
 }
 
 enum Size: String, CaseIterable {

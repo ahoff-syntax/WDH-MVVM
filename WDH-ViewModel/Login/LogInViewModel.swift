@@ -8,6 +8,7 @@
 import Foundation
 
 class LogInViewModel: ObservableObject {
+    
     private let password = "123456"
     private let userName = "user123"
     

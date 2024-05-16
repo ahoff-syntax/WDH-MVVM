@@ -28,10 +28,7 @@ struct LogInView: View {
             
         }
         .environmentObject(viewModel)
-        
-        
-        
-        
+
     }
 }
 

@@ -7,12 +7,14 @@
 
 import SwiftUI
 
+
+
 struct PizzaMainView: View {
     
-    @StateObject var viewModel: PizzaViewModel = PizzaViewModel()
+    @StateObject var pizzaViewModel: PizzaViewModel = PizzaViewModel()
     
     @EnvironmentObject var logInViewModel: LogInViewModel
-    
+   
     var body: some View {
         
         NavigationStack{
@@ -24,12 +26,12 @@ struct PizzaMainView: View {
                         .bold()
                     
                     
-                    ForEach(viewModel.pizzas, id: \.name) { pizza in
+                    ForEach(pizzaViewModel.pizzas, id: \.name) { pizza in
                         
                         NavigationLink(pizza.name) {
-                            PizzaDetailView(viewModel: viewModel)
+                            PizzaDetailView(pizzaViewModel: pizzaViewModel)
                                 .onAppear(perform: {
-                                    viewModel.setPizza(pizza: pizza)
+                                    pizzaViewModel.setPizza(pizza: pizza)
                                 })
                         }
                         
@@ -41,9 +43,9 @@ struct PizzaMainView: View {
                 
                 .toolbar{
                     ToolbarItem(placement: .topBarLeading) {
-                        Button(action: {viewModel.toggleShowSheet()}, label: {
+                        Button(action: {pizzaViewModel.toggleShowSheet()}, label: {
                             Image(systemName: "cart")
-                                .badge(viewModel.orderList.count)
+                               
                         })
                         
                     }
@@ -53,8 +55,8 @@ struct PizzaMainView: View {
                     }
                     }
                 }
-                .sheet(isPresented: $viewModel.showSheet, content: {
-                    OrderList(pizzaViewModel: viewModel)
+                .sheet(isPresented: $pizzaViewModel.showSheet, content: {
+                    OrderList(pizzaViewModel: pizzaViewModel)
                 })
             }
         }
